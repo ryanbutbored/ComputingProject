@@ -277,12 +277,3 @@ def getRandomEnigmaKey():
         if i != 9:
             key += "-"
     return key
-
-
-tmp = list(full[0:34])
-key = ""
-for i in range(len(tmp)):
-    c = choice(tmp)
-    key += c
-    tmp.remove(c)
-
