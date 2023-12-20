@@ -13,6 +13,7 @@ def scoreAllAlgorithms():
         choice.set(option)
         results[option] = scoreAlgorithm(filename = "encryptionTestCases100.txt", delay = 0, createDisplayandReport = False)
     analysisButton.config(state = "normal")
+    print(results)
     root.update()
     
 
@@ -167,7 +168,7 @@ def handleEmptyMessage(msg, entry):
 def handleInvalidCharacters(entry):
     if entry.edit_modified() == 1:
         msg = entry.get("1.0", END)
-        for c in msg.strip().upper():
+        for c in msg.strip():
             if not c in textEncryption.full:
                 if entry == plaintext:
                     entryName = "plaintext"
@@ -192,7 +193,7 @@ def handleInvalidCharacters(entry):
         return 
 
 def handleKeyErrors(*args):
-    key = keychoice.get().upper()
+    key = keychoice.get()
     keychoice.config(width = len(str(key))+10)
     if key == "":
         return
@@ -203,8 +204,8 @@ def handleKeyErrors(*args):
             except:
                 keyError("key must be an integer")
                 return
-            if key < 1 or key > 40:
-                keyError("key must be in range 1-40")
+            if key < 1 or key > len(textEncryption.full) - 1:
+                keyError("key must be in range 1-" +str(len(textEncryption.full) - 1))
                 return
             else:
                 keyError("")
@@ -239,14 +240,16 @@ def handleKeyErrors(*args):
                 return
             else:
                 keyError("")
+        case "Enigma":
+            keyError("")
 
 def Encrypt():
     if not "plaintext" in plainMsgError.cget("text"):
-        msg = plaintext.get("1.0", END).strip().upper()
+        msg = plaintext.get("1.0", END).strip()
         msg = handleEmptyMessage(msg, "plaintext")
         if msg == None:
             return
-        key = keychoice.get().upper()
+        key = keychoice.get()
         if key == "":
             handleEmptyKey()
             return
@@ -261,16 +264,18 @@ def Encrypt():
                 newmsg = textEncryption.vigenereCipher(key, msg, "encode")
             case "Rail-Fence Cipher":
                 newmsg = textEncryption.railFenceCipher(int(key), msg, "encode")
+            case "Enigma":
+                newmsg = textEncryption.Enigma(key, msg)
         ciphertext.delete("1.0", END)
         ciphertext.insert("1.0", newmsg)
 
 def Decrypt():
     if not "ciphertext" in cipherMsgError.cget("text"):
-        msg = ciphertext.get("1.0", END).strip().upper()
+        msg = ciphertext.get("1.0", END).strip()
         msg = handleEmptyMessage(msg, "ciphertext")
         if msg == None:
             return
-        key = keychoice.get().upper()
+        key = keychoice.get()
         if key == "":
             handleEmptyKey()
             return
@@ -285,6 +290,8 @@ def Decrypt():
                 newmsg = textEncryption.vigenereCipher(key, msg, "decode")
             case "Rail-Fence Cipher":
                 newmsg = textEncryption.railFenceCipher(int(key), msg, "decode")
+            case "Enigma":
+                newmsg = textEncryption.Enigma(key, msg)
         plaintext.delete("1.0", END)
         plaintext.insert("1.0", newmsg)
 
@@ -298,13 +305,13 @@ def GenerateRandomKey():
             key = textEncryption.getRandomVigKey()
         case "Rail-Fence Cipher":
             key = textEncryption.getRandomRailKey()
+        case "Enigma":
+            key = textEncryption.getRandomEnigmaKey()
     keychoice.delete(0,END)
     keychoice.insert(0, str(key))
     keychoice.config(width = len(str(key))+10)
     
 root = Tk()
-
-#root.option_add("*font", "Courer 9")
 
 ##----- customisation options
 bigframe = Frame()
@@ -365,7 +372,7 @@ choiceframe = Frame()
 choiceframe.pack()
 label = Label(choiceframe, text = "Encryption Method:")
 label.pack(side = "left")
-options = ["Caesar Shift", "Substitution Cipher", "Vigenère Cipher", "Rail-Fence Cipher"]
+options = ["Caesar Shift", "Substitution Cipher", "Vigenère Cipher", "Rail-Fence Cipher", "Enigma"]
 choice = StringVar()
 choice.set("Caesar Shift")
 drop = OptionMenu(choiceframe, choice, *options)
@@ -390,8 +397,6 @@ scoreButton = Button(text = "Score Algorithm", command = scoreAlgorithm)
 scoreButton.pack()
 smallframe = Frame()
 smallframe.pack()
-#label = Label(smallframe, text = "Delay")
-#label.pack(side = "left")
 delayScale = Scale(smallframe, orient = HORIZONTAL, to = 1000, resolution = 10, length = 200)
 delayScale.set(500)
 delayScale.pack(side = "left")
