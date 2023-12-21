@@ -241,8 +241,54 @@ def handleKeyErrors(*args):
             else:
                 keyError("")
         case "Enigma":
+            key = key.split("/")
+            for i, section in enumerate(key):
+                key[i] = section.split("-")
+            print( )
+            if len(key[0]) != 5:
+                keyError("incorrect number of rotor postions")
+                return
+            if len(key[1]) != 5:
+                keyError("incorrect number of key settings")
+                return
+            if len(key[2]) != 5:
+                keyError("incorrect number of ring settings")
+                return
+            if len(set(key[0])) != 5:
+                keyError("duplicate rotor positions")
+            for i in range(5):
+                try:
+                    n = int(key[0][i])
+                    if n < 1 or n > 8:
+                        raise(KeyError)
+                except:
+                    keyError("invalid rotor positions")
+                    return
+            for i in range(1,3):
+                for j in range(5):
+                    if not key[i][j] in textEncryption.full:
+                        if i == 1:
+                            keyError("invalid key settings")
+                            return
+                        else:
+                            keyError("invalid ring settings")
+            used = []
+            for pair in key[3]:
+                pair = pair.split("<>")
+                if len(pair) != 2:
+                    keyError("invalid pluboard setting")
+                    return
+                print(pair)
+                for l in pair:
+                    if not l in textEncryption.full or "" in pair:
+                        keyError("invalid character in pluboard settings")
+                        return
+                    if l in used:
+                        keyError("duplicate character in pluboard settings")
+                        return
+                    used.append(l)
             keyError("")
-
+        
 def Encrypt():
     if not "plaintext" in plainMsgError.cget("text"):
         msg = plaintext.get("1.0", END).strip()
