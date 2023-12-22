@@ -418,7 +418,7 @@ choiceframe = Frame()
 choiceframe.pack()
 label = Label(choiceframe, text = "Encryption Method:")
 label.pack(side = "left")
-options = ["Caesar Shift", "Substitution Cipher", "Vigenère Cipher", "Rail-Fence Cipher", "Enigma"]
+options = ["Caesar Shift", "Substitution Cipher", "Vigenère Cipher", "Rail-Fence Cipher", "Enigma", "RSA"]
 choice = StringVar()
 choice.set("Caesar Shift")
 drop = OptionMenu(choiceframe, choice, *options)
@@ -477,5 +477,3 @@ plainMsgError = Label(text = "Text Error - ", fg = "red")
 cipherMsgError = Label(text = "Text Error - ", fg = "red")
 
 root.mainloop()
-
-

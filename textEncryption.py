@@ -1,7 +1,7 @@
 from string import ascii_uppercase as up, ascii_lowercase as low
 from random import randint, choice
 
-full = '.,?!" ' +low +up +"0123456789"
+full = '. ' +low +up +"0123456789"
 
 #----------------------------Caesar Shift----------------------------
 
@@ -277,3 +277,6 @@ def getRandomEnigmaKey():
         if i != 9:
             key += "-"
     return key
+
+#----------------------RSA-----------------------
+print(len(full))
