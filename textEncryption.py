@@ -1,7 +1,7 @@
 from string import ascii_uppercase as up, ascii_lowercase as low
 from random import randint, choice
 
-full = '. ' +low +up +"0123456789"
+full = ". " +low +up +"0123456789"
 
 #----------------------------Caesar Shift----------------------------
 
@@ -161,14 +161,14 @@ def getRandomRailKey():
 
 #----------------------------Enigma----------------------------
 
-rotors = ['', ['EzavLkPynhG5I.mTS?i0NfBDRW2"6X7xMuZ 9Uw1QOogbAqptJ3K,sC!ejYdr48HVcFl', ['Q']], 
-              ['W3qRPV67?nuC9KBNcgaMGJoYjidAeOs,rS!40xvzHhy5f.k"UIXl8DmLE2 ZFTpQwbt1', ['E']], 
-              ['phDs3Fw!f.UZG"iM76Pxeb1otKdOyIaErR4Agk?XT5NBn8zVlJquQmLC cjSv29WY,H0', ['V']], 
-              ['O,hYwSVqlzHQgrCEoIxZsT85a?iJ1f6UcjPMRBKtbAGpL0.v FDWkduN9n24em"X!73y', ['J']], 
-              ['vMlQP9ApdiZWjDwOthC0"STe2FmBs!UHN6x.guor8cYnqyGL1zaK?VI4fb X3Ek,5RJ7', ['Z']], 
-              ['WlV2jsxbmL1oGS467a.!9 UZpeBw3q,y"vCNniQkrFcDu0PhOTIAz8fYtJ?EKR5MXdgH', ['Z', 'M']], 
-              ['u9DjR6KAH1EQVW7.CiTlXNP"cwx!dn0e,oYB3GUhFtbkOzZmSr?pg 2sq8ya5fIJMLv4', ['Z', 'M']], 
-              ['Aha8cjSLT BxN4uvR0gKOIVtP,lHE7Dsi"bq2?M6ydUfw!CZXnFm.3JrepW1oQ5z9kGY', ['Z', 'M']]]
+rotors = ["", ["qHXpMIAV8ucEywgRr9GDvY4ZFf1B CPmWOl.05T6teJKona7Lbdk3NUjQhSzsix2", ["Q"]], 
+              ["n 1h8H25XwYqFLaR6cPogpDt.Im9Kre43Gb0Z7lOTCBJQzWsAduyxNMSfkVvUjEi", ["E"]], 
+              ["2zwCG6lOpZrf. q7uaNT0vVWJscKMjFHtn9gdeyDoPSmEX5kAYQ84xI1hiBU3RbL", ["V"]], 
+              ["WicLrSx8nFeqM2XZfJYOlQGdH BgzE3sC9p1mTP5oj6ubNyR4wKkU7at0IvV.ADh", ["J"]], 
+              ["ZW3AqzG08fbuiERHav9KTlVpmcXC2rFdDxjLwtk s.PNJo17neQBO6IUh4gMYyS5", ["Z"]], 
+              ["D51a0dQtSg8RNxVfqyzWbhnHc3pI7JZiTOCBu2G4slEPLFMYo Xk.rwm9A6jeUKv", ["Z", "M"]], 
+              ["5CH6PmYfBGI TnpMqAos2VhvEyr8UtO74WFizX01KuNDl3xcadZbgQ9Je.SkwLjR", ["Z", "M"]], 
+              ["Iy58sLlCPvXR6ozbhjUgO.SKxrFdqHnaBQ30ETY2 V7uGZANf9tiewpWJD1ck4mM", ["Z", "M"]]]
 
 class Rotor:
     def __init__(self, r):
@@ -177,8 +177,8 @@ class Rotor:
         self.notches = r[1]
         self.rotated = False
 
-reflector = Rotor(['KC0SW3JEZ4MFP19IO8Y76X5UDTN2LRQVGH,sbfABja.weukgyx!trz"pmc?hv dqonli', []])
-                  #'.,?!" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+reflector = Rotor(["I4X5U9YVK7ZMW26O3TFGSQ0HR8ENLJ1Pyqrv.BgAjznDtwspcfkaeiuClo bmhxd", []])
+                  #".,?!" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 def Enigma(key, msg):
     settings = stripEnigmaKey(key)
@@ -279,4 +279,3 @@ def getRandomEnigmaKey():
     return key
 
 #----------------------RSA-----------------------
-print(len(full))
