@@ -1,5 +1,6 @@
 from string import ascii_uppercase as up, ascii_lowercase as low
 from random import randint, choice
+from datetime import datetime
 
 full = ". " +low +up +"0123456789"
 
@@ -279,3 +280,96 @@ def getRandomEnigmaKey():
     return key
 
 #----------------------RSA-----------------------
+
+def gcd(a,b):
+    if a < b:
+        s = a
+        l = b
+    else:
+        l = a
+        s = b
+    r = l % s
+    while r != 0:
+        l = s
+        s = r
+        r = l % s
+    return s
+
+def millerRabin(n):
+    if n % 2 == 0:
+        return False
+    elif n % 3 == 0:
+        return False
+    elif n % 5 == 0:
+        return False
+    else:
+        k = 128
+        s = 0
+        d = n - 1
+        while d % 2 == 0:
+            s += 1
+            d = d // 2
+        for i in range(k):
+            a = randint(2,n-2)
+            x = pow(a,d,n)
+            for j in range(s):
+                y = pow(x,2,n)
+                if y == 1 and x != 1 and x != n-1:
+                    return False
+                x = y
+            if y != 1:
+                return False
+        return True
+
+def EEA(a, b):
+    if a == 0:
+        return (b, 0 , 1)
+    else:
+        g, x, y = EEA(b % a, a)
+        return (g, y - (b // a) * x, x)
+
+def modularInverse(e, phi):
+    g, x, _ = EEA(e, phi)
+    if g != 1:
+        raise Exception("Modular inverse does not exist")
+    else:
+        return x % phi
+    
+def getRandomRSAKey():
+    bitsize = 1024
+    n = randint(pow(2, (bitsize-1))+1, pow(2, bitsize)-1)
+    while not millerRabin(n):
+        n = randint(pow(2, (bitsize-1))+1, pow(2, bitsize)-1)
+    p = n
+    n = randint(pow(2, (bitsize-1))+1, pow(2, bitsize)-1)
+    while not millerRabin(n):
+        n = randint(pow(2, (bitsize-1))+1, pow(2, bitsize)-1)
+    q = n
+    n = p*q
+    phi = (p - 1) * (q - 1)
+    e = randint(2**15+1, 2**16-1)
+    while gcd(e,phi) != 1:
+        e = randint(2**15+1, 2**16-1)
+    d = modularInverse(e, phi)
+    filename = datetime.now().strftime("%d%m%Y%H%M%S")+".txt"
+    f = open("Keys\\RSA\\"+filename, "w")
+    f.write(str(e) + "\n")
+    f.write(str(d) + "\n")
+    f.write(str(n))
+    return filename
+
+def RSA(key, msg, mode):
+    f = open("Keys\\RSA\\" + key, "r")
+    key = f.readlines()
+    f.close()
+    if mode == "encode":
+        new = []
+        for c in msg:
+            new.append(pow(full.index(c), int(key[0].strip()), int(key[2].strip())))
+        new = [str(x) for x in new]
+        return ".".join(new)
+    else:
+        new = []
+        for c in msg.split("."):
+            new.append(full[pow(int(c), int(key[1].strip()), int(key[2].strip()))])
+        return "".join(new)

@@ -288,6 +288,8 @@ def handleKeyErrors(*args):
                         return
                     used.append(l)
             keyError("")
+        case "RSA":
+            keyError("")
         
 def Encrypt():
     if not "plaintext" in plainMsgError.cget("text"):
@@ -312,6 +314,8 @@ def Encrypt():
                 newmsg = textEncryption.railFenceCipher(int(key), msg, "encode")
             case "Enigma":
                 newmsg = textEncryption.Enigma(key, msg)
+            case "RSA":
+                newmsg = textEncryption.RSA(key, msg, "encode")
         ciphertext.delete("1.0", END)
         ciphertext.insert("1.0", newmsg)
 
@@ -338,6 +342,8 @@ def Decrypt():
                 newmsg = textEncryption.railFenceCipher(int(key), msg, "decode")
             case "Enigma":
                 newmsg = textEncryption.Enigma(key, msg)
+            case "RSA":
+                newmsg = textEncryption.RSA(key, msg, "decode")
         plaintext.delete("1.0", END)
         plaintext.insert("1.0", newmsg)
 
@@ -353,6 +359,8 @@ def GenerateRandomKey():
             key = textEncryption.getRandomRailKey()
         case "Enigma":
             key = textEncryption.getRandomEnigmaKey()
+        case "RSA":
+            key = textEncryption.getRandomRSAKey()
     keychoice.delete(0,END)
     keychoice.insert(0, str(key))
     keychoice.config(width = len(str(key))+10)
