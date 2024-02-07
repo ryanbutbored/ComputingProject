@@ -244,7 +244,6 @@ def handleKeyErrors(*args):
             key = key.split("/")
             for i, section in enumerate(key):
                 key[i] = section.split("-")
-            print( )
             if len(key[0]) != 5:
                 keyError("incorrect number of rotor postions")
                 return
@@ -278,7 +277,6 @@ def handleKeyErrors(*args):
                 if len(pair) != 2:
                     keyError("invalid pluboard setting")
                     return
-                print(pair)
                 for l in pair:
                     if not l in textEncryption.full or "" in pair:
                         keyError("invalid character in pluboard settings")
@@ -289,6 +287,10 @@ def handleKeyErrors(*args):
                     used.append(l)
             keyError("")
         case "RSA":
+            keyError("")
+        case "DES":
+            keyError("")
+        case "Triple DES":
             keyError("")
         
 def Encrypt():
@@ -316,6 +318,10 @@ def Encrypt():
                 newmsg = textEncryption.Enigma(key, msg)
             case "RSA":
                 newmsg = textEncryption.RSA(key, msg, "encode")
+            case "DES":
+                newmsg = textEncryption.doDES(key, msg, "encode")
+            case "Triple DES":
+                newmsg = textEncryption.doDES(key, msg, "encode", triple = True)
         ciphertext.delete("1.0", END)
         ciphertext.insert("1.0", newmsg)
 
@@ -344,6 +350,10 @@ def Decrypt():
                 newmsg = textEncryption.Enigma(key, msg)
             case "RSA":
                 newmsg = textEncryption.RSA(key, msg, "decode")
+            case "DES":
+                newmsg = textEncryption.doDES(key, msg, "decode")
+            case "Triple DES":
+                newmsg = textEncryption.doDES(key, msg, "decode", triple = True)
         plaintext.delete("1.0", END)
         plaintext.insert("1.0", newmsg)
 
@@ -361,6 +371,10 @@ def GenerateRandomKey():
             key = textEncryption.getRandomEnigmaKey()
         case "RSA":
             key = textEncryption.getRandomRSAKey()
+        case "DES":
+            key = textEncryption.getRandomDESKey()
+        case "Triple DES":
+            key = textEncryption.getRandomDESKey(triple = True)
     keychoice.delete(0,END)
     keychoice.insert(0, str(key))
     keychoice.config(width = len(str(key))+10)
@@ -426,7 +440,7 @@ choiceframe = Frame()
 choiceframe.pack()
 label = Label(choiceframe, text = "Encryption Method:")
 label.pack(side = "left")
-options = ["Caesar Shift", "Substitution Cipher", "Vigenère Cipher", "Rail-Fence Cipher", "Enigma", "RSA"]
+options = ["Caesar Shift", "Substitution Cipher", "Vigenère Cipher", "Rail-Fence Cipher", "Enigma", "RSA", "DES", "Triple DES"]
 choice = StringVar()
 choice.set("Caesar Shift")
 drop = OptionMenu(choiceframe, choice, *options)
