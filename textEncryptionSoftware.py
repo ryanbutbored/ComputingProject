@@ -167,15 +167,21 @@ def handleEmptyMessage(msg, entry):
 
 def handleInvalidCharacters(entry):
     if entry.edit_modified() == 1:
-        msg = entry.get("1.0", END)
-        for c in msg.strip():
-            if not c in textEncryption.full:
-                if entry == plaintext:
-                    entryName = "plaintext"
-                    msgError = plainMsgError
-                else:
-                    entryName = "ciphertext"
-                    msgError = cipherMsgError
+        if entry == plaintext:
+            entryName = "plaintext"
+            msgError = plainMsgError
+        else:
+            entryName = "ciphertext"
+            msgError = cipherMsgError
+        msg = entry.get("1.0", END).strip()
+        validCharacters = textEncryption.full
+        if entryName == "ciphertext":
+            if choice.get() in ["DES", "Triple DES", "Blowfish"]:
+                validCharacters = "0123456789abcdefABCDEF"
+            if choice.get() == "RSA":
+                validCharacters = textEncryption.base64 + "."
+        for c in msg:
+            if not c in validCharacters:
                 if msgError.cget("text") == "Text Error - ":
                     msgError.config(text = msgError.cget("text") + entryName +" contains invalid character")
                     msgError.pack()
@@ -183,10 +189,6 @@ def handleInvalidCharacters(entry):
                 else:
                     entry.edit_modified(False)
                 return
-        if entry == plaintext:
-            msgError = plainMsgError
-        else:
-            msgError = cipherMsgError
         msgError.config(text = "Text Error - ")
         msgError.pack_forget()
         entry.edit_modified(False)
@@ -289,8 +291,31 @@ def handleKeyErrors(*args):
         case "RSA":
             keyError("")
         case "DES":
+            if len(key) != 16:
+                keyError("invalid length (must be 16)")
+                return
+            for c in key:
+                if not c in "0123456789abcdefABCDEF":
+                    keyError("invalid characters")
+                    return
             keyError("")
         case "Triple DES":
+            if len(key) != 32:
+                keyError("invalid length (must be 16)")
+                return
+            for c in key:
+                if not c in "0123456789abcdefABCDEF":
+                    keyError("invalid characters")
+                    return
+            keyError("")
+        case "Blowfish":
+            if len(key) != 112:
+                keyError("invalid length (must be 112)")
+                return
+            for c in key:
+                if not c in "0123456789abcdefABCDEF":
+                    keyError("invalid characters")
+                    return
             keyError("")
         
 def Encrypt():
@@ -319,9 +344,19 @@ def Encrypt():
             case "RSA":
                 newmsg = textEncryption.RSA(key, msg, "encode")
             case "DES":
+                if len(msg) % 32 != 0:
+                    msg += " " * (32 - len(msg) % 32)
                 newmsg = textEncryption.doDES(key, msg, "encode")
             case "Triple DES":
+                if len(msg) % 32 != 0:
+                    msg += " " * (32 - len(msg) % 32)
                 newmsg = textEncryption.doDES(key, msg, "encode", triple = True)
+            case "Blowfish":
+                if len(msg) % 32 != 0:
+                    msg += " " * (32 - len(msg) % 32)
+                newmsg = textEncryption.blowfish(key, msg, "encode")
+            case _:
+                print(choice.get())
         ciphertext.delete("1.0", END)
         ciphertext.insert("1.0", newmsg)
 
@@ -354,6 +389,8 @@ def Decrypt():
                 newmsg = textEncryption.doDES(key, msg, "decode")
             case "Triple DES":
                 newmsg = textEncryption.doDES(key, msg, "decode", triple = True)
+            case "Blowfish":
+                newmsg = textEncryption.blowfish(key, msg, "decode")
         plaintext.delete("1.0", END)
         plaintext.insert("1.0", newmsg)
 
@@ -375,6 +412,8 @@ def GenerateRandomKey():
             key = textEncryption.getRandomDESKey()
         case "Triple DES":
             key = textEncryption.getRandomDESKey(triple = True)
+        case "Blowfish":
+            key = textEncryption.getRandomBlowfishKey()
     keychoice.delete(0,END)
     keychoice.insert(0, str(key))
     keychoice.config(width = len(str(key))+10)
@@ -425,7 +464,7 @@ slantframe = Frame(customframe)
 slantframe.pack()
 label = Label(slantframe, text = "Slant: ")
 label.pack(side = "left")
-slants = ["Italic", "Roman"]
+slants = ["Italic", "#Roman"]
 slantVar = StringVar()
 slantVar.set("Roman")
 weightMenu = OptionMenu(slantframe, slantVar, *slants)
@@ -440,7 +479,7 @@ choiceframe = Frame()
 choiceframe.pack()
 label = Label(choiceframe, text = "Encryption Method:")
 label.pack(side = "left")
-options = ["Caesar Shift", "Substitution Cipher", "Vigenère Cipher", "Rail-Fence Cipher", "Enigma", "RSA", "DES", "Triple DES"]
+options = ["Caesar Shift", "Substitution Cipher", "Vigenère Cipher", "Rail-Fence Cipher", "Enigma", "RSA", "DES", "Triple DES", "Blowfish"]
 choice = StringVar()
 choice.set("Caesar Shift")
 drop = OptionMenu(choiceframe, choice, *options)
