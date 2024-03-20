@@ -317,6 +317,15 @@ def handleKeyErrors(*args):
                     keyError("invalid characters")
                     return
             keyError("")
+        case "AES":
+            if len(key) != 32:
+                keyError("invalid length (must be 32)")
+                return
+            for c in key:
+                if not c in "0123456789abcdefABCDEF":
+                    keyError("invalid characters")
+                    return
+            keyError("")
         
 def Encrypt():
     if not "plaintext" in plainMsgError.cget("text"):
@@ -414,6 +423,8 @@ def GenerateRandomKey():
             key = textEncryption.getRandomDESKey(triple = True)
         case "Blowfish":
             key = textEncryption.getRandomBlowfishKey()
+        case "AES":
+            key = textEncryption.getRandomAESKey()
     keychoice.delete(0,END)
     keychoice.insert(0, str(key))
     keychoice.config(width = len(str(key))+10)
@@ -479,7 +490,7 @@ choiceframe = Frame()
 choiceframe.pack()
 label = Label(choiceframe, text = "Encryption Method:")
 label.pack(side = "left")
-options = ["Caesar Shift", "Substitution Cipher", "Vigenère Cipher", "Rail-Fence Cipher", "Enigma", "RSA", "DES", "Triple DES", "Blowfish"]
+options = ["Caesar Shift", "Substitution Cipher", "Vigenère Cipher", "Rail-Fence Cipher", "Enigma", "RSA", "DES", "Triple DES", "Blowfish", "AES"]
 choice = StringVar()
 choice.set("Caesar Shift")
 drop = OptionMenu(choiceframe, choice, *options)
