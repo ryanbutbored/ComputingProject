@@ -6,18 +6,35 @@ from sys import getsizeof
 from datetime import datetime
 
 def scoreAllAlgorithms():
+    timeTaken = time()
     analysisButton.config(state = "disabled")
     root.update()
     results = {}
     for option in options:
         choice.set(option)
-        results[option] = scoreAlgorithm(filename = "encryptionTestCases100.txt", delay = 0, createDisplayandReport = False)
+        results[option] = scoreAlgorithm(filename = "Test Cases\\encryptionTestCases100.txt", delay = 0, createDisplayandReport = False)
     analysisButton.config(state = "normal")
-    print(results)
+    print("Time Taken: " +str(time() - timeTaken) +" seconds")
+    f = open("Reports\\Detailed Report.txt", "w")
+    fields = ["Key Size", "Key Generation Time", "Encryption Time", "Decryption Time", "Encryption Ratio"]
+    for index, field in enumerate(fields):
+        rankings = []
+        values = [results[key][index] for key in results.keys()]
+        values.sort()
+        for value in values:
+            for key in results.keys():
+                if results[key][index] == value and key not in rankings:
+                    rankings.append(key)
+        f.write(field+"\n----------------------\n")
+        for index, value in enumerate(rankings):
+            f.write(str(index+1) +". " +value +"\n")
+        f.write("\n\n")
+
+    f.close()
     root.update()
     
 
-def scoreAlgorithm(filename = "encryptionTestCases10.txt", delay = -1, createDisplayandReport = True):
+def scoreAlgorithm(filename = "Test Cases\\encryptionTestCases10.txt", delay = -1, createDisplayandReport = True):
     scoreButton.config(state = "disabled")
     root.update()
     if delay == -1:
@@ -109,7 +126,7 @@ def scoreAlgorithm(filename = "encryptionTestCases10.txt", delay = -1, createDis
         button.pack()
     scoreButton.config(state = "normal")
     root.update()
-    return [keysizes, keygentimes, encryptionspeed, decryptionspeed, ratios]
+    return [sum(keysizes)/total, sum(keygentimes)/total, sum(encryptionspeed)/total, sum(decryptionspeed)/total, sum(ratios)/total]
 
 def closeWindow(tk):
     tk.destroy()
@@ -277,14 +294,14 @@ def handleKeyErrors(*args):
             for pair in key[3]:
                 pair = pair.split("<>")
                 if len(pair) != 2:
-                    keyError("invalid pluboard setting")
+                    keyError("invalid plugboard setting")
                     return
                 for l in pair:
                     if not l in textEncryption.full or "" in pair:
-                        keyError("invalid character in pluboard settings")
+                        keyError("invalid character in plugboard settings")
                         return
                     if l in used:
-                        keyError("duplicate character in pluboard settings")
+                        keyError("duplicate character in plugboard settings")
                         return
                     used.append(l)
             keyError("")
@@ -364,6 +381,10 @@ def Encrypt():
                 if len(msg) % 32 != 0:
                     msg += " " * (32 - len(msg) % 32)
                 newmsg = textEncryption.blowfish(key, msg, "encode")
+            case "AES":
+                if len(msg) % 64 != 0:
+                    msg += " " * (64 - len(msg) % 64)
+                newmsg = textEncryption.AES(key, msg, "encode")
             case _:
                 print(choice.get())
         ciphertext.delete("1.0", END)
@@ -400,6 +421,8 @@ def Decrypt():
                 newmsg = textEncryption.doDES(key, msg, "decode", triple = True)
             case "Blowfish":
                 newmsg = textEncryption.blowfish(key, msg, "decode")
+            case "AES":
+                newmsg = textEncryption.AES(key, msg, "decode")
         plaintext.delete("1.0", END)
         plaintext.insert("1.0", newmsg)
 
@@ -519,7 +542,7 @@ delayScale = Scale(smallframe, orient = HORIZONTAL, to = 1000, resolution = 10, 
 delayScale.set(500)
 delayScale.pack(side = "left")
 
-analysisButton = Button(text = "Detailed Analysis - Not Yet Fully Working", command = scoreAllAlgorithms)
+analysisButton = Button(text = "Detailed Analysis", command = scoreAllAlgorithms)
 analysisButton.pack()
 
 bigframe = Frame()

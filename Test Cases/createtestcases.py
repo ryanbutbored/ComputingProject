@@ -3,14 +3,14 @@ from random import choice
 
 full = list(full)
 
-length = 10
+length = 100
 
 f = open("encryptionTestCases" +str(length)+".txt", "w")
 for i in range(length):
     new = ""
-    for i in range(1504):
+    for i in range(1500):
         c = choice(full)
-        if i == 1503:
+        if i == 1499:
             while c == " ":
                 c = choice(new)
         new += c

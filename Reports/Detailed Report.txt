@@ -1,0 +1,70 @@
+Key Size
+----------------------
+1. Caesar Shift
+2. Rail-Fence Cipher
+3. Vigenère Cipher
+4. DES
+5. RSA
+6. Triple DES
+7. AES
+8. Substitution Cipher
+9. Enigma
+10. Blowfish
+
+
+Key Generation Time
+----------------------
+1. AES
+2. Blowfish
+3. Caesar Shift
+4. Vigenère Cipher
+5. Substitution Cipher
+6. Rail-Fence Cipher
+7. Enigma
+8. DES
+9. Triple DES
+10. RSA
+
+
+Encryption Time
+----------------------
+1. Substitution Cipher
+2. Caesar Shift
+3. Vigenère Cipher
+4. Rail-Fence Cipher
+5. Enigma
+6. DES
+7. Blowfish
+8. Triple DES
+9. AES
+10. RSA
+
+
+Decryption Time
+----------------------
+1. Caesar Shift
+2. Substitution Cipher
+3. Vigenère Cipher
+4. Rail-Fence Cipher
+5. Enigma
+6. DES
+7. Blowfish
+8. Triple DES
+9. AES
+10. RSA
+
+
+Encryption Ratio
+----------------------
+1. Caesar Shift
+2. Substitution Cipher
+3. Vigenère Cipher
+4. Rail-Fence Cipher
+5. Enigma
+6. DES
+7. Triple DES
+8. Blowfish
+9. AES
+10. RSA
+
+

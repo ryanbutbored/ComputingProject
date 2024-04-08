@@ -1,0 +1,99 @@
+Average Values
+-------------------------------
+Key Size: 28.0 bytes
+Key Generation Time: 0.0010999202728271484 seconds
+Encryption Time: 0.0004502534866333008 seconds
+Decryption Time: 0.0004500150680541992 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
+Cycle 1
+-------------------------------
+Key Size: 28 bytes
+Key Generation Time: 0.0025000572204589844 seconds
+Encryption Time: 0.0004999637603759766 seconds
+Decryption Time: 0.0004999637603759766 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
+Cycle 2
+-------------------------------
+Key Size: 28 bytes
+Key Generation Time: 0.0009999275207519531 seconds
+Encryption Time: 0.0005025863647460938 seconds
+Decryption Time: 0.000499725341796875 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
+Cycle 3
+-------------------------------
+Key Size: 28 bytes
+Key Generation Time: 0.0009996891021728516 seconds
+Encryption Time: 0.0 seconds
+Decryption Time: 0.0 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
+Cycle 4
+-------------------------------
+Key Size: 28 bytes
+Key Generation Time: 0.0009996891021728516 seconds
+Encryption Time: 0.0004999637603759766 seconds
+Decryption Time: 0.0005002021789550781 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
+Cycle 5
+-------------------------------
+Key Size: 28 bytes
+Key Generation Time: 0.0004999637603759766 seconds
+Encryption Time: 0.0004999637603759766 seconds
+Decryption Time: 0.0004999637603759766 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
+Cycle 6
+-------------------------------
+Key Size: 28 bytes
+Key Generation Time: 0.0009999275207519531 seconds
+Encryption Time: 0.0004999637603759766 seconds
+Decryption Time: 0.0005004405975341797 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
+Cycle 7
+-------------------------------
+Key Size: 28 bytes
+Key Generation Time: 0.0009999275207519531 seconds
+Encryption Time: 0.0005002021789550781 seconds
+Decryption Time: 0.000499725341796875 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
+Cycle 8
+-------------------------------
+Key Size: 28 bytes
+Key Generation Time: 0.0009999275207519531 seconds
+Encryption Time: 0.0004999637603759766 seconds
+Decryption Time: 0.0004999637603759766 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
+Cycle 9
+-------------------------------
+Key Size: 28 bytes
+Key Generation Time: 0.0009999275207519531 seconds
+Encryption Time: 0.0004999637603759766 seconds
+Decryption Time: 0.0005002021789550781 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
+Cycle 10
+-------------------------------
+Key Size: 28 bytes
+Key Generation Time: 0.0010001659393310547 seconds
+Encryption Time: 0.0004999637603759766 seconds
+Decryption Time: 0.0004999637603759766 seconds
+Encryption Ratio: 1.0
+-------------------------------
+
