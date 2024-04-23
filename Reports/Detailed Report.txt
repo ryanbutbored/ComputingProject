@@ -1,70 +1,68 @@
 Key Size
 ----------------------
-1. Caesar Shift
-2. Rail-Fence Cipher
-3. Vigenère Cipher
-4. DES
-5. RSA
-6. Triple DES
-7. AES
-8. Substitution Cipher
-9. Enigma
-10. Blowfish
-
+1. Caesar Shift 28.0 bytes
+2. Rail-Fence Cipher 28.0 bytes
+3. Vigenï¿½re Cipher 50.6 bytes
+4. DES 57.0 bytes
+5. RSA 59.0 bytes
+6. Triple DES 73.0 bytes
+7. AES 73.0 bytes
+8. Substitution Cipher 105.0 bytes
+9. Enigma 120.0 bytes
+10. Blowfish 153.0 bytes
 
 Key Generation Time
 ----------------------
-1. AES
-2. Blowfish
-3. Caesar Shift
-4. Vigenère Cipher
-5. Substitution Cipher
-6. Rail-Fence Cipher
-7. Enigma
-8. DES
-9. Triple DES
-10. RSA
-
+1. Rail-Fence Cipher 0.0003641772270202637 seconds
+2. Vigenï¿½re Cipher 0.0003724884986877441 seconds
+3. Substitution Cipher 0.0011868000030517579 seconds
+4. Caesar Shift 0.001308131217956543 seconds
+5. DES 0.0014104604721069335 seconds
+6. Enigma 0.0014106154441833497 seconds
+7. AES 0.0015048766136169433 seconds
+8. Triple DES 0.0015645027160644531 seconds
+9. Blowfish 0.0017477107048034669 seconds
+10. RSA 1.4334786081314086 seconds
 
 Encryption Time
 ----------------------
-1. Substitution Cipher
-2. Caesar Shift
-3. Vigenère Cipher
-4. Rail-Fence Cipher
-5. Enigma
-6. DES
-7. Blowfish
-8. Triple DES
-9. AES
-10. RSA
+1. Caesar Shift 0.00036745071411132814 seconds
+2. Substitution Cipher 0.0004056310653686523 seconds
+3. Vigenï¿½re Cipher 0.002259845733642578 seconds
+4. Rail-Fence Cipher 0.007438099384307862 seconds
+5. Enigma 0.027852845191955567 seconds
+6. DES 0.2571110320091248 seconds
+7. Blowfish 0.29335062742233275 seconds
+8. AES 0.6620354294776917 seconds
+9. Triple DES 0.7622636246681214 seconds
+10. RSA 1.007973208427429 seconds
 
 
 Decryption Time
 ----------------------
-1. Caesar Shift
-2. Substitution Cipher
-3. Vigenère Cipher
-4. Rail-Fence Cipher
-5. Enigma
-6. DES
-7. Blowfish
-8. Triple DES
-9. AES
-10. RSA
+1. Caesar Shift 0.0003725409507751465 seconds
+2. Substitution Cipher 0.00040846824645996094 seconds
+3. Vigenï¿½re Cipher 0.0008484458923339843 seconds
+4. Rail-Fence Cipher 0.01486825942993164 seconds
+5. Enigma 0.027670390605926513 seconds
+6. DES 0.2569598913192749 seconds
+7. Blowfish 0.2942197823524475 seconds
+8. Triple DES 0.7632658982276916 seconds
+9. AES 1.5455640387535095 seconds
+10. RSA 23.85251357316971 seconds
 
 
 Encryption Ratio
 ----------------------
-1. Caesar Shift
-2. Substitution Cipher
-3. Vigenère Cipher
-4. Rail-Fence Cipher
-5. Enigma
-6. DES
-7. Triple DES
-8. Blowfish
-9. AES
-10. RSA
+1. Caesar Shift 1.0 
+2. Substitution Cipher 1.0 
+3. Vigenï¿½re Cipher 1.0 
+4. Rail-Fence Cipher 1.0 
+5. Enigma 1.0 
+6. DES 1.5040100333555706 
+7. Triple DES 1.5040100333555706 
+8. Blowfish 1.5040100333555706 
+9. AES 1.536010246831221 
+10. RSA 331.61293168779184 
 
 

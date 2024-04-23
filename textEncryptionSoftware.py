@@ -17,8 +17,10 @@ def scoreAllAlgorithms():
     print("Time Taken: " +str(time() - timeTaken) +" seconds")
     f = open("Reports\\Detailed Report.txt", "w")
     fields = ["Key Size", "Key Generation Time", "Encryption Time", "Decryption Time", "Encryption Ratio"]
+    units = ["bytes", "seconds", "seconds", "seconds", ""]
     for index, field in enumerate(fields):
         rankings = []
+        unit = units[index]
         values = [results[key][index] for key in results.keys()]
         values.sort()
         for value in values:
@@ -27,7 +29,7 @@ def scoreAllAlgorithms():
                     rankings.append(key)
         f.write(field+"\n----------------------\n")
         for index, value in enumerate(rankings):
-            f.write(str(index+1) +". " +value +"\n")
+            f.write(str(index+1) +". " +value  +str(values[index]) +" " +unit +"\n")
         f.write("\n\n")
 
     f.close()
